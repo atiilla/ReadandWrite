@@ -3,10 +3,13 @@ package be.intecbrussel.lambda;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,7 @@ public class fileio {
 		String osNameMatch = osName.toLowerCase();
 		String home = System.getProperty("user.home");
 		FileSystem file = FileSystems.getDefault();
+
 		System.out.println(
 				"OS: " + System.getProperty("os.name") + ", USER DIRECTORY: " + System.getProperty("user.home"));
 
@@ -35,12 +39,18 @@ public class fileio {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			Path path = Paths.get(home + "/Desktop/testFolder/" + filename + ".txt");
 			System.out.println("Enter your msg to " + filename);
 			String data = input.next();
 			List<String> lines = new ArrayList<>();
 			lines.add(data);
-			Files.write(home + "/Desktop/testFolder/" + filename + ".txt", lines, Charset.forName("UTF-8"),
-					StandardOpenOption.APPEND);
+
+			try {
+				Files.write(path, lines, Charset.defaultCharset(), StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if (osNameMatch.contains("windows")) {
 			new File(home + "\\Desktop\\testFolder").mkdir();
 		} else if (osNameMatch.contains("solaris") || osNameMatch.contains("sunos")) {
