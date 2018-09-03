@@ -1,0 +1,15 @@
+try (FileInputStream inputStream = new FileInputStream("textFile.txt");) {
+
+			int databyte =0;
+			// write the characters on the console
+			
+			while((databyte = inputStream.read())!=-1) {
+				System.out.print((char)databyte);
+				
+				
+			}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
